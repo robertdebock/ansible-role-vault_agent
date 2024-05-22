@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Install and configure vault_agent on your system.
+  homepage: https://robertdebock.nl/
+  topics: vaultagent, application, cloud, database, development, infrastructure, linux, monitoring, networking, storage, security, system, tools, windows, ansible, molecule, tox, playbook

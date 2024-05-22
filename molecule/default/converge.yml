@@ -1,0 +1,45 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: ansible-role-vault_agent
+      vault_agent_address: "http://vault.example.com:8200"
+      vault_agent_auto_auth:
+        methods:
+          - name: "approle"
+            config:
+              role_id_file_path: "/etc/vault-agent/role_id"
+              secret_id_file_path: "/etc/vault-agent/secret_id"
+        #   - name: "aws"
+        #     mount_path: "auth/aws-subaccount"
+        #     config:
+        #       type: "iam"
+        #       role: "foobar"
+        sinks:
+          - name: file
+            config:
+              path: "/tmp/file-foo"
+          - name: "file"
+            wrap_ttl: "5m"
+            aad_env_var: "Test_AAD_ENV"
+            dh_type: "curve25519"
+            dh_path: "/tmp/file-foo-dhpath2"
+            config:
+              path: "/tmp/file-bar"
+      vault_agent_listeners:
+        # - name: "unix"
+        #   address: "/path/to/socket"
+        #   tls_disable: true
+        #   agent_api:
+        #     enable_quit: true
+        - name: "tcp"
+          address: "127.0.0.1:8100"
+          tls_disable: true
+      vault_agent_templates:
+        - source: "/etc/vault-agent/server.key.ctmpl"
+          destination: "/tmp/server.key"
+        - source: "/etc/vault-agent/server.crt.ctmpl"
+          destination: "/tmp/server.crt"

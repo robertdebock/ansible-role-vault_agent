@@ -1,0 +1,41 @@
+---
+- name: Prepare
+  hosts: all
+  become: true
+  gather_facts: false
+
+  roles:
+    - role: robertdebock.bootstrap
+    - role: robertdebock.core_dependencies
+    - role: robertdebock.hashicorp
+
+  tasks:
+    - name: Create /etc/vault-agent directory
+      ansible.builtin.file:
+        path: /etc/vault-agent
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Place fake approle id and secret
+      ansible.builtin.copy:
+        content: "FAKE"
+        dest: "{{ item }}"
+        owner: root
+        group: root
+        mode: 0644
+      loop:
+        - /etc/vault-agent/role_id
+        - /etc/vault-agent/secret_id
+
+    - name: Pleace Vault agent templates
+      ansible.builtin.copy:
+        content: "FAKE"
+        dest: "{{ item }}"
+        owner: root
+        group: root
+        mode: 0644
+      loop:
+        - /etc/vault-agent/server.key.ctmpl
+        - /etc/vault-agent/server.crt.ctmpl
