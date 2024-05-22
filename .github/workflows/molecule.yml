@@ -3,7 +3,7 @@ name: Molecule Test
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -18,4 +18,4 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
       - name: Run molecule test
-        run: MOLECULE_DEBUG=1 molecule test
+        run: molecule test
