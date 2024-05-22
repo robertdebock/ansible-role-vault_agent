@@ -19,6 +19,6 @@ jobs:
           python3 -m pip install -r requirements.txt
 # Do I have these requirements locally as well?
       - name: Try something
-        run: docker ps
+        run: docker info
       - name: Run molecule test
         run: molecule test
