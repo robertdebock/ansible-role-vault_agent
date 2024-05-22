@@ -131,7 +131,7 @@ vault_agent_retries: 5
 
 # The authentication method to use.
 # vault_agent_auto_auth:
-#   methods: 
+#   methods:
 #     - name: "aws"
 #       mount_path: "auth/aws-subaccount"
 #       config:
