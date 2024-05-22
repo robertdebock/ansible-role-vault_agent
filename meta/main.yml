@@ -2,7 +2,7 @@
 galaxy_info:
   author: robertdebock
   role_name: vault_agent
-  description: Install and configure vault_agent on your system.
+  description: Install and configure HashiCorp Vault Agent on your system.
   license: Apache-2.0
   company: none
   min_ansible_version: "2.12"

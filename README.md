@@ -1,6 +1,6 @@
 # [Ansible role vault_agent](#vault_agent)
 
-Install and configure vault_agent on your system.
+Install and configure HashiCorp Vault Agent on your system.
 
 |GitHub|GitLab|Downloads|Version|
 |------|------|---------|-------|
