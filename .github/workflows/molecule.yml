@@ -11,21 +11,16 @@ jobs:
         python-version: ["3.10", "3.11"]
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          path: molecule_demo
-      - name: Check
-        run: ls molecule_demo
+      - uses: actions/checkout@v4
+        # with:
+        #   path: molecule_demo
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: |
-          cd molecule_demo
+        run:
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
       - name: Test with molecule
-        run: |
-          cd molecule_demo
-          molecule test
+        run: molecule test
