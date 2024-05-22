@@ -17,5 +17,6 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
+# Do I have these requirements locally as well?
       - name: Run molecule test
         run: molecule test
