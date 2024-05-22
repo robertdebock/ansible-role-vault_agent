@@ -40,7 +40,7 @@
     - Reload systemd
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Start and enable vault agent
   ansible.builtin.systemd:
