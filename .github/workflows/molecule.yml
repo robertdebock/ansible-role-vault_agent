@@ -1,71 +1,26 @@
----
-#
-# Ansible managed
-#
+name: Molecule Test
 
-name: Ansible Molecule
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-  schedule:
-    - cron: '43 22 22 * *'
+on: [push, pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: ansible-lint
-        uses: ansible-community/ansible-lint-action@main
-  test:
-    needs:
-      - lint
+  build:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      max-parallel: 4
       matrix:
-        config:
-          - image: "alpine"
-            tag: "latest"
-          - image: "amazonlinux"
-            tag: "1"
-          - image: "amazonlinux"
-            tag: "latest"
-          - image: "debian"
-            tag: "latest"
-          - image: "debian"
-            tag: "bullseye"
-          - image: "enterpriselinux"
-            tag: "8"
-          - image: "enterpriselinux"
-            tag: "latest"
-          - image: "fedora"
-            tag: "39"
-          - image: "fedora"
-            tag: "latest"
-          - image: "fedora"
-            tag: "rawhide"
-          - image: "opensuse"
-            tag: "latest"
-          - image: "ubuntu"
-            tag: "latest"
-          - image: "ubuntu"
-            tag: "jammy"
-          - image: "ubuntu"
-            tag: "focal"
+        python-version: ["3.10", "3.11"]
+
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v2
         with:
-          path: "${{ github.repository }}"
-      - name: docker-ps
-        run: docker ps
-      - name: molecule
-        uses: robertdebock/molecule-action@6.0.1
+          path: molecule_demo
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          image: ${{ matrix.config.image }}
-          tag: ${{ matrix.config.tag }}
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
+      - name: Test with molecule
+        run: molecule test
