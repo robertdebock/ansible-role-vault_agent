@@ -9,13 +9,17 @@ jobs:
       max-parallel: 4
 
     steps:
+      - name: Check something
+        run: |
+          printenv
+          netstat -tunlp
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
       - name: Update pip
         run: python3 -m pip install --upgrade pip
-      - name: Install dependencies
+      - name: Install pip dependencies
         run: python3 -m pip install -r requirements.txt
       - name: Run molecule test
         run: molecule test
