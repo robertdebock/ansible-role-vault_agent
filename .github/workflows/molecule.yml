@@ -9,18 +9,13 @@ jobs:
       max-parallel: 4
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Check
-        run: ls
-      - name: Check 2
-        run: printenv
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
         uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
-      - name: Test with molecule
+      - name: Run molecule test
         run: molecule test
