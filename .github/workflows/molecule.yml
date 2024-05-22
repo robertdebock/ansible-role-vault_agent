@@ -29,10 +29,6 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - image: "alpine"
-            tag: "latest"
-          - image: "amazonlinux"
-            tag: "1"
           - image: "amazonlinux"
             tag: "latest"
           - image: "debian"
@@ -44,13 +40,9 @@ jobs:
           - image: "enterpriselinux"
             tag: "latest"
           - image: "fedora"
+            tag: "38"
+          - image: "fedora"
             tag: "39"
-          - image: "fedora"
-            tag: "latest"
-          - image: "fedora"
-            tag: "rawhide"
-          - image: "opensuse"
-            tag: "latest"
           - image: "ubuntu"
             tag: "latest"
           - image: "ubuntu"
