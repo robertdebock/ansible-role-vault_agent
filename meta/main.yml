@@ -29,16 +29,10 @@ galaxy_info:
     - vaultagent
     - application
     - cloud
-    - database
-    - development
     - infrastructure
     - linux
-    - monitoring
-    - networking
-    - storage
     - security
     - system
     - tools
-    - windows
 
 dependencies: []

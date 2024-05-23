@@ -51,11 +51,22 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
         - name: "tcp"
           address: "127.0.0.1:8100"
           tls_disable: true
-      vault_agent_templates:
-        - source: "/etc/vault-agent/server.key.ctmpl"
-          destination: "/tmp/server.key"
-        - source: "/etc/vault-agent/server.crt.ctmpl"
-          destination: "/tmp/server.crt"
+      # vault_agent_templates:
+      #   - source: "/etc/vault-agent/server.key.ctmpl"
+      #     destination: "/tmp/server.key"
+      #   - source: "/etc/vault-agent/server.crt.ctmpl"
+      #     destination: "/tmp/server.crt"
+      vault_agent_env_templates:
+        - name: "USERNAME"
+          contents: "{{ '{{ with secret \\\"secret/data/foo\\\" }}{{ .Data.data.password }}{{ end }}' }}"
+          error_on_missing_key: true
+        - name: "PASSWORD"
+          contents: "{{ '{{ with secret \\\"secret/data/foo\\\" }}{{ .Data.data.user }}{{ end }}' }}"
+          error_on_missing_key: true
+      vault_agent_exec:
+        command: ["/path/to/my-app", "arg1", "arg2"]
+        restart_on_secret_changes: "always"
+        restart_stop_signal: "SIGTERM"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-vault_agent/blob/master/molecule/default/prepare.yml):
@@ -153,8 +164,8 @@ vault_agent_retries: 5
 vault_agent_cache: {}
 
 # Should this Vault offer proxy capabilties?
-vault_agent_api_proxy:
-  use_auto_auth_token: true
+# vault_agent_api_proxy:
+#   use_auto_auth_token: true
 
 # A list of listeners to configure.
 # vault_agent_listeners:
