@@ -40,8 +40,8 @@ vault_agent_retries: 5
 vault_agent_cache: {}
 
 # Should this Vault offer proxy capabilties?
-vault_agent_api_proxy:
-  use_auto_auth_token: true
+# vault_agent_api_proxy:
+#   use_auto_auth_token: true
 
 # A list of listeners to configure.
 # vault_agent_listeners:

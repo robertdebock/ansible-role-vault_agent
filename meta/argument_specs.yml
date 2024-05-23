@@ -57,3 +57,13 @@ argument_specs:
         default: null
         description: "A list of templates to render. The files mentioned in the source will not be placed by this role."
         type: "list"
+      vault_agent_env_templates:
+        required: false
+        default: null
+        description: "A list of environment variables to set."
+        type: "list"
+      vault_agent_exec:
+        required: false
+        default: null
+        description: "A command to execute when secrets change."
+        type: "dict"

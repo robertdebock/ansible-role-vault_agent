@@ -38,8 +38,19 @@
         - name: "tcp"
           address: "127.0.0.1:8100"
           tls_disable: true
-      vault_agent_templates:
-        - source: "/etc/vault-agent/server.key.ctmpl"
-          destination: "/tmp/server.key"
-        - source: "/etc/vault-agent/server.crt.ctmpl"
-          destination: "/tmp/server.crt"
+      # vault_agent_templates:
+      #   - source: "/etc/vault-agent/server.key.ctmpl"
+      #     destination: "/tmp/server.key"
+      #   - source: "/etc/vault-agent/server.crt.ctmpl"
+      #     destination: "/tmp/server.crt"
+      vault_agent_env_templates:
+        - name: "USERNAME"
+          contents: "{{ '{{ with secret \\\"secret/data/foo\\\" }}{{ .Data.data.password }}{{ end }}' }}"
+          error_on_missing_key: true
+        - name: "PASSWORD"
+          contents: "{{ '{{ with secret \\\"secret/data/foo\\\" }}{{ .Data.data.user }}{{ end }}' }}"
+          error_on_missing_key: true
+      vault_agent_exec:
+        command: ["/path/to/my-app", "arg1", "arg2"]
+        restart_on_secret_changes: "always"
+        restart_stop_signal: "SIGTERM"

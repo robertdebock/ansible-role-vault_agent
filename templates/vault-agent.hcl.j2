@@ -33,6 +33,7 @@ auto_auth {
     }
   }
 {% endfor %}
+{% if vault_agent_auto_auth.sinks is defined %}
 {% for sink in vault_agent_auto_auth.sinks %}
   sink "{{ sink.name }}" {
 {% if sink.wrap_ttl is defined %}
@@ -52,6 +53,7 @@ auto_auth {
     }
   }
 {% endfor %}
+{% endif %}
 }
 
 {% if vault_agent_cache is defined %}
@@ -74,12 +76,31 @@ listener "{{ listener.name }}" {
   }
 {% endif %}
 }
-
 {% endfor %}
- 
+
+{% if vault_agent_templates is defined %}
 {% for template in vault_agent_templates %} 
 template {
   source = "{{ template.source }}"
   destination = "{{ template.destination }}"
 }
 {% endfor %}
+{% endif %}
+
+{% if vault_agent_env_templates is defined %}
+{% for template in vault_agent_env_templates %}
+env_template "{{ template.name }}" {
+  contents             = "{{ template.contents }}"
+  error_on_missing_key = {{ template.error_on_missing_key | ternary("true", "false") }}
+}
+{% endfor %}
+{% endif %}
+
+{% if vault_agent_exec is defined %}
+exec {
+  command                   = [{{ '\"' + vault_agent_exec.command | join('\", \"') + '\"' }}]
+  restart_on_secret_changes = "{{ vault_agent_exec.restart_on_secret_changes }}"
+  restart_stop_signal       = "{{ vault_agent_exec.restart_stop_signal }}"
+}
+{% endif %}
+ 

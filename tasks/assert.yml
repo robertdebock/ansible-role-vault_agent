@@ -84,6 +84,22 @@
   when:
     - vault_agent_api_proxy is defined
 
+- name: assert | Test vault_agent_api_proxy
+  ansible.builtin.assert:
+    that:
+      - vault_agent_api_proxy is not defined
+    quiet: true
+  when:
+    - vault_agent_env_templates is defined
+
+- name: assert | Test vault_agent_templates
+  ansible.builtin.assert:
+    that:
+      - vault_agent_templates is not defined
+    quiet: true
+  when:
+    - vault_agent_env_templates is defined
+
 - name: assert | Test vault_agent_listeners
   ansible.builtin.assert:
     that:
@@ -101,3 +117,21 @@
     quiet: true
   when:
     - vault_agent_templates is defined
+
+- name: assert | Test vault_agent_env_templates
+  ansible.builtin.assert:
+    that:
+      - vault_agent_env_templates is iterable
+      - vault_agent_env_templates is not none
+    quiet: true
+  when:
+    - vault_agent_env_templates is defined
+
+- name: assert | Test vault_agent_exec
+  ansible.builtin.assert:
+    that:
+      - vault_agent_exec is mapping
+      - vault_agent_exec is not none
+    quiet: true
+  when:
+    - vault_agent_exec is defined
