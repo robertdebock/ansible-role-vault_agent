@@ -18,7 +18,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
   gather_facts: true
 
   roles:
-    - role: ansible-role-vault_agent
+    - role: robertdebock.vault_agent
       vault_agent_address: "http://vault.example.com:8200"
       vault_agent_auto_auth:
         methods:
