@@ -5,4 +5,4 @@
 repository:
   description: Install and configure HashiCorp Vault Agent on your system.
   homepage: https://robertdebock.nl/
-  topics: vaultagent, application, cloud, infrastructure, linux, security, system, tools, ansible, molecule, tox, playbook
+  topics: vaultagent, application, cloud, infrastructure, linux, security, system, tools, ansible, molecule, playbook
