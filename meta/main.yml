@@ -16,7 +16,8 @@ galaxy_info:
         - "9"
     - name: Fedora
       versions:
-        - all
+        # HashiCorp does not publish packages for rawhide or the very latest Fedora.
+        - "44"
     - name: Ubuntu
       versions:
         - noble
